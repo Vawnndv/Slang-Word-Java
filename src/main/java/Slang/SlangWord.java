@@ -25,6 +25,17 @@ public class SlangWord {
         FILE_HISTORY = path + "\\" + FILE_HISTORY;
     }
 
+    public static Object getInstance() throws IOException {
+        if (obj == null) {
+            synchronized (SlangWord.class) {
+                if (obj == null) {
+                    obj = new SlangWord();// instance will be created at request time
+                }
+            }
+        }
+        return obj;
+    }
+
     void readFile(String file) throws Exception {
         sw.clear();
         String slag = null;
@@ -58,5 +69,21 @@ public class SlangWord {
 
     public void reset() {
         System.out.println("");
+    }
+
+    public String[][] getMeaning(String key) {
+        String [][] str = {{"a"}, {"b"}};
+        return str;
+    }
+
+    public String[][] findDefinition(String key) {
+        String [][] str = {{"a"}, {"b"}};
+        return str;
+    }
+
+    public void saveHistory(String s, String s1) {
+    }
+
+    public void set(String valueAt, String s, String valueAt1) {
     }
 }

@@ -6,10 +6,11 @@ import java.awt.event.*;
 import java.io.IOException;
 
 public class Menu extends JFrame implements ActionListener {
-    JButton btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8, btn9, btn10;
-    SlangWord slangWord = new SlangWord();
+    private JButton btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8, btn9, btn10;
+    SlangWord slangWord;
 
     Menu() throws IOException {
+        slangWord = (SlangWord) SlangWord.getInstance();
         // A Label
         JLabel label = new JLabel("Slang Word Program!");
         label.setForeground(Color.orange);
@@ -107,7 +108,7 @@ public class Menu extends JFrame implements ActionListener {
         if (e.getSource() == btn1) {
             this.dispose();
             try {
-                // Code
+                new Find();
             } catch (Exception e1) {
                 // TODO Auto-generated catch block
                 e1.printStackTrace();
