@@ -2,6 +2,7 @@ package Slang;
 
 import java.io.*;
 import java.util.*;
+import java.util.Map.Entry;
 
 public class SlangWord {
     private  TreeMap<String, List<String>> sw = new TreeMap<>();
@@ -10,7 +11,7 @@ public class SlangWord {
     static {
         try {
             obj = new SlangWord();
-        } catch (IOException e) {
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
@@ -18,14 +19,17 @@ public class SlangWord {
     private int size;
     private String FILE_SLANGWORD = "slang.txt";
     private String FILE_HISTORY = "history.txt";
+    private String FILE_UPDATE_SWANGWORD = "newSlang.txt";
 
-    SlangWord () throws IOException {
+    SlangWord () throws Exception {
         String path = new File(".").getCanonicalPath();
         FILE_SLANGWORD = path + "\\" + FILE_SLANGWORD;
         FILE_HISTORY = path + "\\" + FILE_HISTORY;
+        FILE_UPDATE_SWANGWORD = path + "\\" + FILE_UPDATE_SWANGWORD;
+        readFile(FILE_SLANGWORD);
     }
 
-    public static Object getInstance() throws IOException {
+    public static Object getInstance() throws Exception {
         if (obj == null) {
             synchronized (SlangWord.class) {
                 if (obj == null) {
@@ -68,22 +72,77 @@ public class SlangWord {
     }
 
     public void reset() {
-        System.out.println("");
+        System.out.println("reset");
     }
 
     public String[][] getMeaning(String key) {
-        String [][] str = {{"a"}, {"b"}};
-        return str;
+        List<String> meaning = sw.get(key);
+        if (meaning == null)
+            return null;
+        String temp[][] = new String[meaning.size()][3];
+        for (int i = 0; i < meaning.size(); i++) {
+            temp[i][0] = String.valueOf(i);
+            temp[i][1] = key;
+            temp[i][2] = meaning.get(i);
+        }
+        return temp;
     }
 
-    public String[][] findDefinition(String key) {
-        String [][] str = {{"a"}, {"b"}};
-        return str;
+    public String[][] getKey(String meaningInput) {
+        List<String> keyList = new ArrayList<>();
+        List<String> meaningList = new ArrayList<>();
+        for (Entry<String, List<String>> entry : sw.entrySet()) {
+            List<String> meaning = entry.getValue();
+            for (int i = 0; i < meaning.size(); i++) {
+                if (meaning.get(i).toLowerCase().contains(meaningInput.toLowerCase())) {
+                    keyList.add(entry.getKey());
+                    meaningList.add(meaning.get(i));
+                }
+            }
+        }
+        int size = keyList.size();
+        String temp[][] = new String[size][3];
+
+        for (int i = 0; i < size; i++) {
+            temp[i][0] = String.valueOf(i);
+            temp[i][1] = keyList.get(i);
+            temp[i][2] = meaningList.get(i);
+        }
+        return temp;
     }
 
     public void saveHistory(String s, String s1) {
     }
 
-    public void set(String valueAt, String s, String valueAt1) {
+    public void setMeaning(String slag, String oldValue, String newValue) {
+        System.out.println(oldValue + "\t" + newValue);
+        List<String> meaning = sw.get(slag);
+        int index = meaning.indexOf(oldValue);
+        meaning.set(index, newValue);
+        System.out.println("HEEEEEEEEEELO");
+        saveFile(FILE_UPDATE_SWANGWORD);
+    }
+    void saveFile (String fileName) {
+        try {
+            FileWriter myWriter = new FileWriter(fileName);
+            Set<String> keySet = sw.keySet();
+            Object[] keyArray = keySet.toArray();
+            myWriter.write("Slag`Meaning\n");
+            for (int i = 0; i < sw.size() - 1; i++) {
+                String str = (String) keyArray[i] + "`";
+                List<String> meaning = sw.get(keyArray[i]);
+                for (int j = 0; j < meaning.size(); j++)
+                    if (j != meaning.size() - 1)
+                        str += meaning.get(j) + "|";
+                    else
+                        str += meaning.get(j) + "\n";
+                myWriter.write(str);
+            }
+            myWriter.close();
+            System.out.println("Successfully wrote to the file.");
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
     }
 }

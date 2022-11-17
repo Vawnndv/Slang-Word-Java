@@ -9,7 +9,7 @@ public class Menu extends JFrame implements ActionListener {
     private JButton btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8, btn9, btn10;
     SlangWord slangWord;
 
-    Menu() throws IOException {
+    Menu() throws Exception {
         slangWord = (SlangWord) SlangWord.getInstance();
         // A Label
         JLabel label = new JLabel("Slang Word Program!");

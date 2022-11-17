@@ -42,11 +42,11 @@ public class Find extends JFrame implements ActionListener, TableModelListener {
         JPanel form = new JPanel();
         JLabel formLabel = new JLabel("  Enter please");
         textField = new JTextField();
-        btnFindSW = new JButton("Find Slang Word ");
+        btnFindSW = new JButton("Find flow Slang Word ");
         btnFindSW.addActionListener(this);
         btnFindSW.setMnemonic(KeyEvent.VK_ENTER);
 
-        btnFindD = new JButton("Find Definition ");
+        btnFindD = new JButton("Find flow Definition ");
         btnFindD.addActionListener(this);
         btnFindD.setMnemonic(KeyEvent.VK_ENTER);
 
@@ -117,52 +117,34 @@ public class Find extends JFrame implements ActionListener, TableModelListener {
         if (e.getSource() == btnFindD || e.getSource() == btnFindSW) {
             String key = textField.getText();
             if (key.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Please input slang word you want to find", "Inane error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Please enter word you want to find", "Inane error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
             String[][] temp = null;
             if (e.getSource() == btnFindSW) {
                 this.clearTable();
-                long startTime = System.currentTimeMillis();
                 temp = slangword.getMeaning(key);
-                long endTime = System.currentTimeMillis();
-                long timeElapsed = endTime - startTime;
-                if (temp != null)
-                    label_.setText("Execution time in milliseconds(" + temp.length + " Results ): "
-                            + String.valueOf(timeElapsed) + " ms");
-                else {
-                    label_.setText("Can't not find that slangWord");
-                    return;
-                }
-                result = temp;
-                for (int i = 0; i < result.length; i++) {
-                    String ss[] = result[i];
-                    model.addRow(ss);
-                }
 
             } else if (e.getSource() == btnFindD) {
                 this.clearTable();
-                long startTime = System.currentTimeMillis();
-                temp = slangword.findDefinition(key);
-                long endTime = System.currentTimeMillis();
-                long timeElapsed = endTime - startTime;
-                if (temp != null)
-                    label_.setText("Execution time in milliseconds(" + temp.length + " Results ): "
-                            + String.valueOf(timeElapsed) + " ms");
-                else {
-                    label_.setText("Can't not find that slangWord");
-                    return;
-                }
-                result = temp;
-                for (int i = 0; i < result.length; i++) {
-                    String ss[] = result[i];
-                    model.addRow(ss);
-                }
+                temp = slangword.getKey(key);
             }
+            if (temp != null)
+                label_.setText(temp.length + " results were found");
+            else {
+                label_.setText("Can't not find");
+                return;
+            }
+            result = temp;
+            for (int i = 0; i < temp.length; i++) {
+                String rlt[] = temp[i];
+                model.addRow(rlt);
+            }
+
             try {
-                for (int ii = 0; ii < temp.length; ii++)
-                    slangword.saveHistory(temp[ii][1], temp[ii][2]);
+                for (int index = 0; index < temp.length; index++)
+                    slangword.saveHistory(temp[index][1], temp[index][2]);
             } catch (Exception e1) {
                 e1.printStackTrace();
             }
@@ -170,7 +152,7 @@ public class Find extends JFrame implements ActionListener, TableModelListener {
             this.dispose();
             try {
                 new Menu();
-            } catch (IOException ex) {
+            } catch (Exception ex) {
                 throw new RuntimeException(ex);
             }
         }
@@ -185,7 +167,7 @@ public class Find extends JFrame implements ActionListener, TableModelListener {
         System.out.println("Table element selected is: " + row + col + " : " + Data);
         if (col == 2) {
             // edit meaning
-            slangword.set((String) table.getValueAt(row, 1), result[row][2], (String) table.getValueAt(row, 2));
+            slangword.setMeaning((String) table.getValueAt(row, 1), result[row][2], (String) table.getValueAt(row, 2));
             JOptionPane.showMessageDialog(this, "Updated a row.");
         }
         table.setFocusable(false);
