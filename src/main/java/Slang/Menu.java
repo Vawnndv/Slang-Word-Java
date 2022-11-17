@@ -3,13 +3,13 @@ package Slang;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.IOException;
 
 public class Menu extends JFrame implements ActionListener {
-    JButton btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8, btn9;
-    SlangWord slangWord;
+    JButton btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8, btn9, btn10;
+    SlangWord slangWord = new SlangWord();
 
-    Menu() {
-        slangWord = SlangWord.getInstance();
+    Menu() throws IOException {
         // A Label
         JLabel label = new JLabel("Slang Word Program!");
         label.setForeground(Color.orange);
@@ -52,19 +52,24 @@ public class Menu extends JFrame implements ActionListener {
         btn7.setFont(new Font("Gill Sans MT", Font.PLAIN, 14));
         btn7.setFocusable(false);
 
-        btn8 = new JButton("8. Quiz random slang word");
+        btn8 = new JButton("8. Random slang word");
         btn8.addActionListener(this);
         btn8.setFont(new Font("Gill Sans MT", Font.PLAIN, 14));
         btn8.setFocusable(false);
 
-        btn9 = new JButton("9. Quiz random definition");
+        btn9 = new JButton("9. Quiz random slang word");
         btn9.addActionListener(this);
         btn9.setFont(new Font("Gill Sans MT", Font.PLAIN, 14));
         btn9.setFocusable(false);
 
+        btn10 = new JButton("10. Quiz random definition");
+        btn10.addActionListener(this);
+        btn10.setFont(new Font("Gill Sans MT", Font.PLAIN, 14));
+        btn10.setFocusable(false);
+
         JPanel panelCenter = new JPanel();
         // panelCenter.setBackground(Color.gray);
-        panelCenter.setLayout(new GridLayout(9, 1, 10, 10));
+        panelCenter.setLayout(new GridLayout(10, 1, 10, 10));
         panelCenter.add(btn1);
         panelCenter.add(btn2);
         panelCenter.add(btn3);
@@ -74,6 +79,7 @@ public class Menu extends JFrame implements ActionListener {
         panelCenter.add(btn7);
         panelCenter.add(btn8);
         panelCenter.add(btn9);
+        panelCenter.add(btn10);
 
         Dimension size2 = new Dimension(600, 500);
         panelCenter.setMaximumSize(size2);
@@ -167,6 +173,14 @@ public class Menu extends JFrame implements ActionListener {
                 e1.printStackTrace();
             }
         } else if (e.getSource() == btn9) {
+            this.dispose();
+            try {
+                // Code
+            } catch (Exception e1) {
+                // TODO Auto-generated catch block
+                e1.printStackTrace();
+            }
+        } else if (e.getSource() == btn10) {
             this.dispose();
             try {
                 // Code
