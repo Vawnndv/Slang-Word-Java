@@ -215,4 +215,20 @@ public class SlangWord {
         sw.remove(key);
         this.saveFile(FILE_UPDATE_SWANGWORD);
     }
+
+    public String[][] randomSlangWord() {
+        Random generator = new Random();
+        int value = generator.nextInt(sw.size());
+        String key = (String) sw.keySet().toArray()[value];
+        List<String> meaning = sw.get(key);
+        String str = "";
+        for (int i = 0; i < meaning.size(); i++) {
+            if (i != meaning.size() - 1)
+                str += meaning.get(i) + ", ";
+            else
+                str += meaning.get(i) + ".";
+        }
+        String temp[][] = {{key,str}};
+        return temp;
+    }
 }

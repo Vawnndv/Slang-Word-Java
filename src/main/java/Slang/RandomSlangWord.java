@@ -10,8 +10,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class RandomSlangWord extends JFrame implements ActionListener, TableModelListener {
-    private JButton btnBack, btnRandom;
+    private JButton btnBack, btnRandom, btnClear;
     private JTable table;
+    private DefaultTableModel model;
     SlangWord slangword;
 
     RandomSlangWord () throws Exception {
@@ -29,10 +30,12 @@ public class RandomSlangWord extends JFrame implements ActionListener, TableMode
         String column[] = { "Slag", "Meaning"};
         table = new JTable(new DefaultTableModel(column, 0));
         table.setRowHeight(30);
+        model = (DefaultTableModel) table.getModel();
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(JLabel.CENTER);
         table.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
         table.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
+        table.getModel().addTableModelListener(this);
         table.getModel().addTableModelListener(this);
         JScrollPane sp = new JScrollPane(table);
 
@@ -43,9 +46,16 @@ public class RandomSlangWord extends JFrame implements ActionListener, TableMode
         JPanel topPanel = new JPanel();
         btnRandom = new JButton("Random");
         btnRandom.setFocusable(false);
-        topPanel.add(btnRandom);
         btnRandom.addActionListener(this);
         btnRandom.setAlignmentX(CENTER_ALIGNMENT);
+
+        btnClear = new JButton("Clear table");
+        btnClear.setFocusable(false);
+        btnClear.addActionListener(this);
+        btnClear.setAlignmentX(CENTER_ALIGNMENT);
+        topPanel.setLayout(new GridLayout(1,2));
+        topPanel.add(btnRandom);
+        topPanel.add(btnClear);
 
         // Button Back
         JPanel bottomPanel = new JPanel();
@@ -77,7 +87,34 @@ public class RandomSlangWord extends JFrame implements ActionListener, TableMode
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == btnRandom) {
+            String [][] temp = slangword.randomSlangWord();
+            if (temp != null) {
+                for (int i = 0; i < temp.length; i++) {
+                    String rlt[] = temp[i];
+                    model.addRow(rlt);
+                }
+            }
+        }
+        if (e.getSource() == btnClear) {
+            clearTable();
+        }
+        if (e.getSource() == btnBack) {
+            this.dispose();
+            try {
+                new Menu();
+            } catch (Exception ex) {
+                throw new RuntimeException(ex);
+            }
+        }
+    }
 
+    void clearTable() {
+        int rowCount = model.getRowCount();
+        // Remove rows one by one from the end of the table
+        for (int i = rowCount - 1; i >= 0; i--) {
+            model.removeRow(i);
+        }
     }
 
     @Override

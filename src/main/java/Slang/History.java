@@ -106,14 +106,6 @@ public class History extends JFrame implements ActionListener, TableModelListene
         }
     }
 
-    void clearTable() {
-        int rowCount = model.getRowCount();
-        // Remove rows one by one from the end of the table
-        for (int i = rowCount - 1; i >= 0; i--) {
-            model.removeRow(i);
-        }
-    }
-
     @Override
     public void tableChanged(TableModelEvent e) {
 
