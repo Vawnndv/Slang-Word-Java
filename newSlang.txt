@@ -1,5 +1,6 @@
 Slag`Meaning
 #1`Number one
+#2`Second
 $`Dollar| money|Dollar| money
 $_$`Has money
 %)`Drunk| giddy|Drunk| giddy
@@ -1032,7 +1033,7 @@ BUB`Buddy| friend| Champange|Buddy| friend| Champange|Buddy| friend| Champange
 BUBS`Babe
 BUBZ`Pet name for BF or GF
 BUCK`Fight| Money|Fight| Money
-BUCKS`Dollars| moneyaaaaaaaaa|Dollars| money
+BUCKS`Dollars| money|Dollars| money
 BUD`Marijuana
 BUDDY`Friend
 BUEY`similar to DUDE

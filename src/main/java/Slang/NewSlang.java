@@ -80,5 +80,47 @@ public class NewSlang extends JFrame implements ActionListener {
     }
     @Override
     public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == btnAdd) {
+            String key = textKey.getText();
+            String meaning = textMeaning.getText();
+            if (key.isEmpty()) {
+                label_.setText("Please enter key");
+                JOptionPane.showMessageDialog(this, "Please enter key", "Inane error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            if (meaning.isEmpty()) {
+                label_.setText("Please enter meaning");
+                JOptionPane.showMessageDialog(this, "Please enter meaning", "Inane error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            if (slangword.isSameSlang(key)) {
+                label_.setText("This slang already exists");
+                Object[] options = { "Overwrite", "Duplicate" };
+                int n = JOptionPane.showOptionDialog(this, "This slang already exists", "Choose mode add",
+                        JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, null);
+                if (n == 0) {
+                    slangword.addOverWrite(key, meaning);
+                    label_.setText("Overwrite Success");
+                    JOptionPane.showMessageDialog(this, "Overwrite Success.");
+                } else if (n == 1) {
+                    slangword.addDupilicate(key, meaning);
+                    label_.setText("Dupilicate Success");
+                    JOptionPane.showMessageDialog(this, "Dupilicate Success.");
+                }
+            } else {
+                slangword.addSlang(key, meaning); {
+                    label_.setText("Add success");
+                    JOptionPane.showMessageDialog(this, "Add Success.");
+                }
+            }
+        }
+        if (e.getSource() == btnBack) {
+            this.dispose();
+            try {
+                new Menu();
+            } catch (Exception ex) {
+                throw new RuntimeException(ex);
+            }
+        }
     }
 }

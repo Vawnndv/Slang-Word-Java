@@ -16,7 +16,6 @@ public class SlangWord {
         }
     }
 
-    private int size;
     private String FILE_SLANGWORD = "slang.txt";
     private String FILE_HISTORY = "history.txt";
     private String FILE_UPDATE_SWANGWORD = "newSlang.txt";
@@ -46,7 +45,6 @@ public class SlangWord {
         Scanner scanner = new Scanner(new File(file));
         scanner.useDelimiter("\n");
         scanner.next();
-        size = 0;
         while (scanner.hasNext()) {
             List<String> meaning = new ArrayList<String>();
             String [] part = scanner.next().split("`");
@@ -61,12 +59,10 @@ public class SlangWord {
                 String[] d = (part[1]).split("\\|");
                 for (int index = 0; index < d.length; index++)
                 Collections.addAll(meaning, d);
-                size += d.length - 1;
             } else {
                 meaning.add(part[1]);
             }
             sw.put(slag, meaning);
-            size++;
         }
         scanner.close();
     }
@@ -175,5 +171,33 @@ public class SlangWord {
             temp[i][3] = dateList.get(i);
         }
         return temp;
+    }
+
+    public Boolean isSameSlang(String key) {
+        List<String> meaning = sw.get(key);
+        if (meaning != null)
+            return true;
+        return false;
+    }
+
+    public void addOverWrite(String key, String meaning) {
+        List<String> meaningList = sw.get(key);
+        meaningList.set(0, meaning);
+        sw.put(key, meaningList);
+        this.saveFile(FILE_UPDATE_SWANGWORD);
+    }
+
+    public void addDupilicate(String key, String meaning) {
+        List<String> meaningList = sw.get(key);
+        meaningList.add(meaning);
+        sw.put(key, meaningList);
+        this.saveFile(FILE_UPDATE_SWANGWORD);
+    }
+
+    public void addSlang(String key, String meaning) {
+        List<String> meaningList = new ArrayList<>();
+        meaningList.add(meaning);
+        sw.put(key, meaningList);
+        this.saveFile(FILE_SLANGWORD);
     }
 }
