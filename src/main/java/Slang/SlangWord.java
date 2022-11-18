@@ -111,7 +111,13 @@ public class SlangWord {
         return temp;
     }
 
-    public void saveHistory(String s, String s1) {
+    public void saveHistory(String key, String meaning) throws IOException {
+        FileWriter fw = new FileWriter(FILE_HISTORY, true);
+        BufferedWriter bw = new BufferedWriter(fw);
+        String str = key + "`" + meaning;
+        bw.write(str);
+        bw.newLine();
+        bw.close();
     }
 
     public void setMeaning(String slag, String oldValue, String newValue) {

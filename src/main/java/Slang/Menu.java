@@ -11,12 +11,12 @@ public class Menu extends JFrame implements ActionListener {
 
     Menu() throws Exception {
         slangWord = (SlangWord) SlangWord.getInstance();
-        // A Label
+        // Label
         JLabel label = new JLabel("Slang Word Program!");
         label.setForeground(Color.orange);
         label.setFont(new Font("Gill Sans MT", Font.ITALIC, 40));
         label.setAlignmentX(CENTER_ALIGNMENT);
-        // label.addMouseListener(this);
+
         // A Grid
         btn1 = new JButton("1. Find slang word");
         btn1.addActionListener(this);
@@ -116,7 +116,7 @@ public class Menu extends JFrame implements ActionListener {
         } else if (e.getSource() == btn2) {
             this.dispose();
             try {
-                // Code
+                new Find();
             } catch (Exception e1) {
                 // TODO Auto-generated catch block
                 e1.printStackTrace();
@@ -143,7 +143,7 @@ public class Menu extends JFrame implements ActionListener {
         } else if (e.getSource() == btn5) {
             this.dispose();
             try {
-                // Code
+                new Find();
             } catch (Exception e1) {
                 // TODO Auto-generated catch block
                 e1.printStackTrace();

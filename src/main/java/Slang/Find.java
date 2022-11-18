@@ -144,6 +144,7 @@ public class Find extends JFrame implements ActionListener, TableModelListener {
 
             try {
                 for (int index = 0; index < temp.length; index++)
+                    // Key, Meaning
                     slangword.saveHistory(temp[index][1], temp[index][2]);
             } catch (Exception e1) {
                 e1.printStackTrace();
