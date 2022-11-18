@@ -7,7 +7,6 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.*;
-import java.io.IOException;
 
 
 public class Find extends JFrame implements ActionListener, TableModelListener {
@@ -97,7 +96,7 @@ public class Find extends JFrame implements ActionListener, TableModelListener {
         con.add(Box.createRigidArea(new Dimension(0, 10)));
         con.add(label);
         con.add(Box.createRigidArea(new Dimension(0, 10)));
-        con.add(label);
+        con.add(label_);
         con.add(Box.createRigidArea(new Dimension(0, 10)));
         con.add(form);
         con.add(Box.createRigidArea(new Dimension(0, 10)));
