@@ -231,4 +231,39 @@ public class SlangWord {
         String temp[][] = {{key,str}};
         return temp;
     }
+
+    public String[] questionSlang() {
+        String []temp = new String[6];
+        Random generator = new Random();
+
+        int value = generator.nextInt(sw.size());
+        String key = (String) sw.keySet().toArray()[value];
+        temp[0] = key;
+        System.out.println("KEY: " +key);
+        List<String> meaning = sw.get(key);
+        int result = generator.nextInt(meaning.size());
+        String str_result = meaning.get(result);
+        result = generator.nextInt(4) + 1;
+        temp[result] = str_result;
+        System.out.println("KQ: " + str_result);
+        temp[5] = String.valueOf(result);
+        System.out.println("Vi tri dung" + temp[5]);
+        int ran = 0;
+        for (int i = 1; i < 5; i++) {
+            if (i == result)
+                continue;
+            else {
+                do {
+                    ran = generator.nextInt(sw.size());
+                } while (value == ran);
+                key = (String) sw.keySet().toArray()[ran];
+                meaning = sw.get(key);
+                int r = generator.nextInt(meaning.size());
+                String str_r = meaning.get(r);
+                temp[i] = str_r;
+                System.out.println(str_r);
+            }
+        }
+        return temp;
+    }
 }

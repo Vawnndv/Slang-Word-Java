@@ -10,8 +10,16 @@ public class Question extends JFrame implements ActionListener {
     private JButton btn1, btn2, btn3, btn4, btnBack;
     private JLabel label_, labelQuestion;
     SlangWord slangword;
+    int result = 0;
 
     Question (String type) throws Exception {
+        slangword = (SlangWord) SlangWord.getInstance();
+        String temp [] = null;
+        if (type.equals("Slang")) {
+            temp = slangword.questionSlang();
+        } else if (type.equals("Definition")) {
+            //temp = slangword.questionDefinition();
+        }
         slangword = (SlangWord) SlangWord.getInstance();
         // Title Label
         JLabel label = new JLabel();
@@ -86,10 +94,53 @@ public class Question extends JFrame implements ActionListener {
         this.setSize(650,650);
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
+        if (temp != null) {
+            labelQuestion.setText(temp[0]);
+            btn1.setText(temp[1]);
+            btn2.setText(temp[2]);
+            btn3.setText(temp[3]);
+            btn4.setText(temp[4]);
+            result = Integer.parseInt(temp[5]);
+        }
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
+        if (e.getSource() == btn1) {
+            if (result == 1) {
+                label_.setText("Correct");
+            } else {
+                label_.setText("Incorrect");
+            }
+        }
+        if (e.getSource() == btn2) {
+            if (result == 2) {
+                label_.setText("Correct");
+            } else {
+                label_.setText("Incorrect");
+            }
+        }
+        if (e.getSource() == btn3) {
+            if (result == 3) {
+                label_.setText("Correct");
+            } else {
+                label_.setText("Incorrect");
+            }
+        }
+        if (e.getSource() == btn4) {
+            if (result == 4) {
+                label_.setText("Correct");
+            } else {
+                label_.setText("Incorrect");
+            }
+        }
+        if (e.getSource() == btnBack) {
+            this.dispose();
+            try {
+                new Menu();
+            } catch (Exception ex) {
+                throw new RuntimeException(ex);
+            }
+        }
     }
 }
