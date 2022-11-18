@@ -70,6 +70,33 @@ public class Delete  extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
+        if (e.getSource() == btnDelete) {
+            String key = text.getText();
+            if (key.isEmpty()) {
+                label_.setText("Please enter slang");
+                JOptionPane.showMessageDialog(this, "Please enter slang", "Inane error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            if (!slangword.isSameSlang(key)) {
+                label_.setText("This slang does not exist yet");
+                JOptionPane.showMessageDialog(this, "This slang does not exist yet");
+                return;
+            }
+            Object[] options = { "Sure", "Cancel" };
+            int choose = JOptionPane.showOptionDialog(this, "Do you want to delete this Slang", "Confirm",
+                    JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, null);
+            if (choose == 0) {
+                label_.setText("Delete success");
+                slangword.delete(key);
+            }
+        }
+        if (e.getSource() == btnBack) {
+            this.dispose();
+            try {
+                new Menu();
+            } catch (Exception ex) {
+                throw new RuntimeException(ex);
+            }
+        }
     }
 }

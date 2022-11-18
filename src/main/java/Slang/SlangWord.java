@@ -43,11 +43,12 @@ public class SlangWord {
         sw.clear();
         String slag = null;
         Scanner scanner = new Scanner(new File(file));
-        scanner.useDelimiter("\n");
+        scanner.useDelimiter("\\n");
         scanner.next();
         while (scanner.hasNext()) {
+            String str = scanner.next();
             List<String> meaning = new ArrayList<String>();
-            String [] part = scanner.next().split("`");
+            String [] part = str.split("`");
             if (part.length == 1)
                     continue;
             slag = part[0].trim();
@@ -57,8 +58,10 @@ public class SlangWord {
             }
             if (part[1].contains("|")) {
                 String[] d = (part[1]).split("\\|");
-                for (int index = 0; index < d.length; index++)
-                Collections.addAll(meaning, d);
+                for (int index = 0; index < d.length; index++) {
+                    meaning.add(d[index]);
+                }
+
             } else {
                 meaning.add(part[1]);
             }
@@ -198,6 +201,11 @@ public class SlangWord {
         List<String> meaningList = new ArrayList<>();
         meaningList.add(meaning);
         sw.put(key, meaningList);
-        this.saveFile(FILE_SLANGWORD);
+        this.saveFile(FILE_UPDATE_SWANGWORD);
+    }
+
+    public void delete(String key) {
+        sw.remove(key);
+        this.saveFile(FILE_UPDATE_SWANGWORD);
     }
 }
