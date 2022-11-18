@@ -119,7 +119,6 @@ public class SlangWord {
         List<String> meaning = sw.get(slag);
         int index = meaning.indexOf(oldValue);
         meaning.set(index, newValue);
-        System.out.println("HEEEEEEEEEELO");
         saveFile(FILE_UPDATE_SWANGWORD);
     }
     void saveFile (String fileName) {
