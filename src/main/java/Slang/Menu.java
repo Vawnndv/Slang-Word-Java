@@ -152,7 +152,7 @@ public class Menu extends JFrame implements ActionListener {
         } else if (e.getSource() == btn6) {
             this.dispose();
             try {
-                // Code
+                new Delete();
             } catch (Exception e1) {
                 // TODO Auto-generated catch block
                 e1.printStackTrace();
