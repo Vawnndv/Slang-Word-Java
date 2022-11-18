@@ -159,16 +159,16 @@ public class Find extends JFrame implements ActionListener, TableModelListener {
     }
 
     public void tableChanged(TableModelEvent e) {
-        int row = table.getSelectedRow();
-        int col = table.getSelectedColumn();
-        if (row == col && row == -1)
+        int rown = table.getSelectedRow();
+        int column = table.getSelectedColumn();
+        if (rown == column && rown == -1)
             return;
-        String Data = (String) table.getValueAt(row, col);
-        System.out.println("Table element selected is: " + row + col + " : " + Data);
-        if (col == 2) {
-            // edit meaning
-            slangword.setMeaning((String) table.getValueAt(row, 1), result[row][2], (String) table.getValueAt(row, 2));
-            JOptionPane.showMessageDialog(this, "Updated a row.");
+        String Data = (String) table.getValueAt(rown, column);
+        System.out.println("Table element selected is: " + rown + column + " : " + Data);
+        // edit meaning
+        if (column == 2) {
+            slangword.setMeaning((String) table.getValueAt(rown, 1), result[rown][2], (String) table.getValueAt(rown, 2));
+            JOptionPane.showMessageDialog(this, "Updated success!");
         }
         table.setFocusable(false);
     }
