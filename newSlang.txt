@@ -590,7 +590,6 @@ AYT`Are You There?
 AYW`As You Wish
 AYYO`Hi, hello
 AZN`Asian
-B`Be
 B&`Banned| Band
 B&B`Bed & Breakfast
 B&D`Bondage And Discipline| Bondage And Domination

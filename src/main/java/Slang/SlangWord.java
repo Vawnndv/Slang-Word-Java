@@ -174,11 +174,13 @@ public class SlangWord {
         }
         scanner.close();
         temp = new String[keyList.size()][4];
-        for (int i = 0; i < keyList.size(); i++) {
-            temp[i][0] = String.valueOf(i);
-            temp[i][1] = keyList.get(i);
-            temp[i][2] = meaningList.get(i);
-            temp[i][3] = dateList.get(i);
+        int index = 0;
+        for (int i = keyList.size() - 1; i >= 0; i--) {
+            temp[index][0] = String.valueOf(index);
+            temp[index][1] = keyList.get(i);
+            temp[index][2] = meaningList.get(i);
+            temp[index][3] = dateList.get(i);
+            index++;
         }
         return temp;
     }
@@ -289,5 +291,12 @@ public class SlangWord {
             }
         }
         return temp;
+    }
+
+    public void clearHistory() throws IOException {
+        FileWriter fw = new FileWriter(FILE_HISTORY, false);
+        BufferedWriter bw = new BufferedWriter(fw);
+        bw.write("");
+        bw.close();
     }
 }

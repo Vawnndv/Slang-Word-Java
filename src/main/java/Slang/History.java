@@ -8,11 +8,12 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 
 import static java.awt.Component.CENTER_ALIGNMENT;
 
 public class History extends JFrame implements ActionListener, TableModelListener {
-    private JButton btnBack, btnRefresh;
+    private JButton btnBack, btnRefresh, btnClear;
     private JTable table;
     private DefaultTableModel model;
     SlangWord slangword;
@@ -49,9 +50,16 @@ public class History extends JFrame implements ActionListener, TableModelListene
         JPanel topPanel = new JPanel();
         btnRefresh = new JButton("Refresh");
         btnRefresh.setFocusable(false);
-        topPanel.add(btnRefresh);
         btnRefresh.addActionListener(this);
         btnRefresh.setAlignmentX(CENTER_ALIGNMENT);
+        btnClear = new JButton("Clear history");
+        btnClear.setFocusable(false);
+        btnClear.addActionListener(this);
+        btnClear.setAlignmentX(CENTER_ALIGNMENT);
+        topPanel.setLayout(new GridLayout(1,2,20, 20));
+        topPanel.add(btnRefresh);
+        topPanel.add(btnClear);
+
 
         // Button Back
         JPanel bottomPanel = new JPanel();
@@ -96,6 +104,15 @@ public class History extends JFrame implements ActionListener, TableModelListene
                 }
             }
         }
+        if (e.getSource() == btnClear) {
+            clearTable();
+            try {
+                slangword.clearHistory();
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+            JOptionPane.showMessageDialog(this, "Clear done", "Notice", JOptionPane.INFORMATION_MESSAGE);
+        }
         if (e.getSource() == btnBack) {
             this.dispose();
             try {
@@ -103,6 +120,14 @@ public class History extends JFrame implements ActionListener, TableModelListene
             } catch (Exception ex) {
                 throw new RuntimeException(ex);
             }
+        }
+    }
+
+    void clearTable() {
+        int rowCount = model.getRowCount();
+        // Remove rows one by one from the end of the table
+        for (int i = rowCount - 1; i >= 0; i--) {
+            model.removeRow(i);
         }
     }
 
