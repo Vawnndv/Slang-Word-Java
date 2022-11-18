@@ -18,7 +18,7 @@ public class Question extends JFrame implements ActionListener {
         if (type.equals("Slang")) {
             temp = slangword.questionSlang();
         } else if (type.equals("Definition")) {
-            //temp = slangword.questionDefinition();
+            temp = slangword.questionDefinition();
         }
         slangword = (SlangWord) SlangWord.getInstance();
         // Title Label
@@ -109,6 +109,7 @@ public class Question extends JFrame implements ActionListener {
         if (e.getSource() == btn1) {
             if (result == 1) {
                 label_.setText("Correct");
+                JOptionPane.showMessageDialog(this, "EXCELLENT", "Congratulations", JOptionPane.INFORMATION_MESSAGE);
             } else {
                 label_.setText("Incorrect");
             }
@@ -116,6 +117,7 @@ public class Question extends JFrame implements ActionListener {
         if (e.getSource() == btn2) {
             if (result == 2) {
                 label_.setText("Correct");
+                JOptionPane.showMessageDialog(this, "EXCELLENT", "Congratulations", JOptionPane.INFORMATION_MESSAGE);
             } else {
                 label_.setText("Incorrect");
             }
@@ -123,6 +125,7 @@ public class Question extends JFrame implements ActionListener {
         if (e.getSource() == btn3) {
             if (result == 3) {
                 label_.setText("Correct");
+                JOptionPane.showMessageDialog(this, "EXCELLENT", "Congratulations", JOptionPane.INFORMATION_MESSAGE);
             } else {
                 label_.setText("Incorrect");
             }
@@ -130,6 +133,7 @@ public class Question extends JFrame implements ActionListener {
         if (e.getSource() == btn4) {
             if (result == 4) {
                 label_.setText("Correct");
+                JOptionPane.showMessageDialog(this, "EXCELLENT", "Congratulations", JOptionPane.INFORMATION_MESSAGE);
             } else {
                 label_.setText("Incorrect");
             }
