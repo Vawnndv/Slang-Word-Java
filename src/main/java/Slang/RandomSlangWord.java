@@ -6,22 +6,19 @@ import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import java.awt.event.*;
-import java.io.FileNotFoundException;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-import static java.awt.Component.CENTER_ALIGNMENT;
-
-public class History extends JFrame implements ActionListener, TableModelListener {
-    private JButton btnBack, btnRefresh;
+public class RandomSlangWord extends JFrame implements ActionListener, TableModelListener {
+    private JButton btnBack, btnRandom;
     private JTable table;
-    private DefaultTableModel model;
     SlangWord slangword;
-    History() throws Exception {
 
+    RandomSlangWord () throws Exception {
         slangword = (SlangWord) SlangWord.getInstance();
         // Title Label
         JLabel label = new JLabel();
-        label.setText("History Slang Words");
+        label.setText("Random Slang Words");
         label.setForeground(Color.orange);
         label.setFont(new Font("Gill Sans MT", Font.ITALIC, 40));
         label.setAlignmentX(CENTER_ALIGNMENT);
@@ -29,29 +26,26 @@ public class History extends JFrame implements ActionListener, TableModelListene
         // Table result
         JPanel panelTable = new JPanel();
         panelTable.setBackground(Color.black);
-        String column[] = { "Ordinal numbers", "Slag", "Meaning", "Date and Time" };
+        String column[] = { "Slag", "Meaning"};
         table = new JTable(new DefaultTableModel(column, 0));
         table.setRowHeight(30);
-        model = (DefaultTableModel) table.getModel();
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(JLabel.CENTER);
         table.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
         table.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
-        table.getColumnModel().getColumn(2).setCellRenderer(centerRenderer);
-        table.getColumnModel().getColumn(3).setCellRenderer(centerRenderer);
         table.getModel().addTableModelListener(this);
         JScrollPane sp = new JScrollPane(table);
 
         panelTable.setLayout(new GridLayout(1, 1));
         panelTable.add(sp);
 
-        // Button Refresh
+        // Button Random
         JPanel topPanel = new JPanel();
-        btnRefresh = new JButton("Refresh");
-        btnRefresh.setFocusable(false);
-        topPanel.add(btnRefresh);
-        btnRefresh.addActionListener(this);
-        btnRefresh.setAlignmentX(CENTER_ALIGNMENT);
+        btnRandom = new JButton("Random");
+        btnRandom.setFocusable(false);
+        topPanel.add(btnRandom);
+        btnRandom.addActionListener(this);
+        btnRandom.setAlignmentX(CENTER_ALIGNMENT);
 
         // Button Back
         JPanel bottomPanel = new JPanel();
@@ -73,7 +67,7 @@ public class History extends JFrame implements ActionListener, TableModelListene
         con.add(Box.createRigidArea(new Dimension(0, 20)));
         con.add(btnBack);
         // Setting JFrame
-        this.setTitle("History Slang Words");
+        this.setTitle("Random Slang Words");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setVisible(true);
         this.setSize(650,650);
@@ -81,37 +75,9 @@ public class History extends JFrame implements ActionListener, TableModelListene
         this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
     }
 
+    @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == btnRefresh) {
-            String [][] temp = null;
-            try {
-                temp = slangword.getHistory();
-            } catch (FileNotFoundException ex) {
-                throw new RuntimeException(ex);
-            }
-            if (temp != null) {
-                for (int i = 0; i < temp.length; i++) {
-                    String rlt[] = temp[i];
-                    model.addRow(rlt);
-                }
-            }
-        }
-        if (e.getSource() == btnBack) {
-            this.dispose();
-            try {
-                new Menu();
-            } catch (Exception ex) {
-                throw new RuntimeException(ex);
-            }
-        }
-    }
 
-    void clearTable() {
-        int rowCount = model.getRowCount();
-        // Remove rows one by one from the end of the table
-        for (int i = rowCount - 1; i >= 0; i--) {
-            model.removeRow(i);
-        }
     }
 
     @Override
