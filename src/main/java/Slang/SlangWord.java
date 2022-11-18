@@ -39,10 +39,12 @@ public class SlangWord {
         return obj;
     }
 
-    void readFile(String file) throws Exception {
+    Boolean readFile(String file) throws Exception {
         sw.clear();
         String slag = null;
         Scanner scanner = new Scanner(new File(file));
+        if (!scanner.hasNext())
+            return false;
         scanner.useDelimiter("\\n");
         scanner.next();
         while (scanner.hasNext()) {
@@ -68,10 +70,15 @@ public class SlangWord {
             sw.put(slag, meaning);
         }
         scanner.close();
+        return true;
     }
 
-    public void reset() {
-        System.out.println("reset");
+    public Boolean reset() throws Exception {
+        sw.clear();
+        if (readFile(FILE_SLANGWORD)) {
+            return true;
+        };
+        return false;
     }
 
     public String[][] getMeaning(String key) {

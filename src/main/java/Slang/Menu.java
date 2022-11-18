@@ -160,7 +160,12 @@ public class Menu extends JFrame implements ActionListener {
         } else if (e.getSource() == btn7) {
             this.dispose();
             try {
-                // Code
+                new Menu();
+                if (slangWord.reset()) {
+                    JOptionPane.showMessageDialog(this, "Reset done", "Notice", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(this, "Reset fail", "Notice", JOptionPane.INFORMATION_MESSAGE);
+                }
             } catch (Exception e1) {
                 // TODO Auto-generated catch block
                 e1.printStackTrace();
