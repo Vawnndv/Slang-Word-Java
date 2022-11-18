@@ -111,10 +111,10 @@ public class SlangWord {
         return temp;
     }
 
-    public void saveHistory(String key, String meaning) throws IOException {
+    public void saveHistory(String key, String meaning, String date) throws IOException {
         FileWriter fw = new FileWriter(FILE_HISTORY, true);
         BufferedWriter bw = new BufferedWriter(fw);
-        String str = key + "`" + meaning;
+        String str = key + "`" + meaning + "`" + date;
         bw.write(str);
         bw.newLine();
         bw.close();
@@ -149,5 +149,31 @@ public class SlangWord {
             System.out.println("An error occurred.");
             e.printStackTrace();
         }
+    }
+
+    public String[][] getHistory() throws FileNotFoundException {
+        String[][] temp = null;
+        List<String> keyList = new ArrayList<>();
+        List<String> meaningList = new ArrayList<>();
+        List<String> dateList = new ArrayList<>();
+        Scanner scanner = new Scanner(new File(FILE_HISTORY));
+        scanner.useDelimiter("\n");
+        while (scanner.hasNext()) {
+            String[] part = scanner.next().split("`");
+            if (part.length != 3)
+                continue;
+            keyList.add(part[0]);
+            meaningList.add(part[1]);
+            dateList.add(part[2]);
+        }
+        scanner.close();
+        temp = new String[keyList.size()][4];
+        for (int i = 0; i < keyList.size(); i++) {
+            temp[i][0] = String.valueOf(i);
+            temp[i][1] = keyList.get(i);
+            temp[i][2] = meaningList.get(i);
+            temp[i][3] = dateList.get(i);
+        }
+        return temp;
     }
 }

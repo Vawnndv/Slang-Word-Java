@@ -7,6 +7,9 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 
 
 public class Find extends JFrame implements ActionListener, TableModelListener {
@@ -142,9 +145,13 @@ public class Find extends JFrame implements ActionListener, TableModelListener {
             }
 
             try {
-                for (int index = 0; index < temp.length; index++)
+                for (int index = 0; index < temp.length; index++) {
                     // Key, Meaning
-                    slangword.saveHistory(temp[index][1], temp[index][2]);
+                    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+                    LocalDateTime now = LocalDateTime.now();
+                    slangword.saveHistory(temp[index][1], temp[index][2], dtf.format(now));
+                }
+
             } catch (Exception e1) {
                 e1.printStackTrace();
             }

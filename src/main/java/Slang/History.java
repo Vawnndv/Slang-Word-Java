@@ -7,17 +7,16 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.FileNotFoundException;
 
 import static java.awt.Component.CENTER_ALIGNMENT;
 
 public class History extends JFrame implements ActionListener, TableModelListener {
     private JLabel label_;
-    private JButton btnBack;
+    private JButton btnBack, btnRefresh;
     private JTable table;
     private DefaultTableModel model;
     SlangWord slangword;
-    private String[][] result;
-
     History() throws Exception {
 
         slangword = (SlangWord) SlangWord.getInstance();
@@ -31,7 +30,7 @@ public class History extends JFrame implements ActionListener, TableModelListene
         // Table result
         JPanel panelTable = new JPanel();
         panelTable.setBackground(Color.black);
-        String column[] = { "Ordinal numbers", "Slag", "Meaning" };
+        String column[] = { "Ordinal numbers", "Slag", "Meaning", "Date and Time" };
         table = new JTable(new DefaultTableModel(column, 0));
         table.setRowHeight(30);
         model = (DefaultTableModel) table.getModel();
@@ -40,11 +39,20 @@ public class History extends JFrame implements ActionListener, TableModelListene
         table.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
         table.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
         table.getColumnModel().getColumn(2).setCellRenderer(centerRenderer);
+        table.getColumnModel().getColumn(3).setCellRenderer(centerRenderer);
         table.getModel().addTableModelListener(this);
         JScrollPane sp = new JScrollPane(table);
 
         panelTable.setLayout(new GridLayout(1, 1));
         panelTable.add(sp);
+
+        // Button Refresh
+        JPanel topPanel = new JPanel();
+        btnRefresh = new JButton("Refresh");
+        btnRefresh.setFocusable(false);
+        topPanel.add(btnRefresh);
+        btnRefresh.addActionListener(this);
+        btnRefresh.setAlignmentX(CENTER_ALIGNMENT);
 
         // Button Back
         JPanel bottomPanel = new JPanel();
@@ -60,6 +68,8 @@ public class History extends JFrame implements ActionListener, TableModelListene
         con.add(Box.createRigidArea(new Dimension(0, 10)));
         con.add(label);
         con.add(Box.createRigidArea(new Dimension(0, 10)));
+        con.add(topPanel);
+        con.add(Box.createRigidArea(new Dimension(0, 10)));
         con.add(panelTable);
         con.add(Box.createRigidArea(new Dimension(0, 20)));
         con.add(btnBack);
@@ -73,6 +83,20 @@ public class History extends JFrame implements ActionListener, TableModelListene
     }
 
     public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == btnRefresh) {
+            String [][] temp = null;
+            try {
+                temp = slangword.getHistory();
+            } catch (FileNotFoundException ex) {
+                throw new RuntimeException(ex);
+            }
+            if (temp != null) {
+                for (int i = 0; i < temp.length; i++) {
+                    String rlt[] = temp[i];
+                    model.addRow(rlt);
+                }
+            }
+        }
         if (e.getSource() == btnBack) {
             this.dispose();
             try {
