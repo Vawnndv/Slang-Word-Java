@@ -134,7 +134,7 @@ public class Menu extends JFrame implements ActionListener {
         } else if (e.getSource() == btn4) {
             this.dispose();
             try {
-                // Code
+                new NewSlang();
             } catch (Exception e1) {
                 // TODO Auto-generated catch block
                 e1.printStackTrace();
