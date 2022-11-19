@@ -243,6 +243,7 @@ $_$`Has money
 @@@`Warning of parents nearby
 @_@`Hypnotized| dazed
 @}--->----`A rose
+A`Chu Ahihi
 A&E`Accident & Emergency
 A&F`Always And Forever| Abercrombie & Fitch
 A&R`Artists & Repertoire
@@ -590,6 +591,7 @@ AYT`Are You There?
 AYW`As You Wish
 AYYO`Hi, hello
 AZN`Asian
+B`Be
 B&`Banned| Band
 B&B`Bed & Breakfast
 B&D`Bondage And Discipline| Bondage And Domination

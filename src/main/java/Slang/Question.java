@@ -88,7 +88,7 @@ public class Question extends JFrame implements ActionListener {
         con.add(Box.createRigidArea(new Dimension(0, 10)));
         con.add(bottomPanel);
         // Setting JFrame
-        this.setTitle("Delete Slang Words");
+        this.setTitle("Question Slang Words");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setVisible(true);
         this.setSize(650,650);

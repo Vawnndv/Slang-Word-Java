@@ -25,7 +25,18 @@ public class SlangWord {
         FILE_SLANGWORD = path + "\\" + FILE_SLANGWORD;
         FILE_HISTORY = path + "\\" + FILE_HISTORY;
         FILE_UPDATE_SWANGWORD = path + "\\" + FILE_UPDATE_SWANGWORD;
-        readFile(FILE_SLANGWORD);
+        if (isFileExist(FILE_UPDATE_SWANGWORD))
+            readFile(FILE_UPDATE_SWANGWORD);
+        else
+            readFile(FILE_SLANGWORD);
+    }
+
+    boolean isFileExist (String file) {
+        File f = new File(file);
+        if(f.exists() && !f.isDirectory()) {
+            return true;
+        }
+        return false;
     }
 
     public static Object getInstance() throws Exception {
