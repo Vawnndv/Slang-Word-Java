@@ -1,5 +1,5 @@
 Slag`Meaning
-#1`Number one
+#1`Number one ne
 $`Dollar| money
 $_$`Has money
 %)`Drunk| giddy
@@ -243,7 +243,6 @@ $_$`Has money
 @@@`Warning of parents nearby
 @_@`Hypnotized| dazed
 @}--->----`A rose
-A`Chu Ahihi
 A&E`Accident & Emergency
 A&F`Always And Forever| Abercrombie & Fitch
 A&R`Artists & Repertoire
@@ -7636,4 +7635,3 @@ ZZZ`Sleepy| bored| tired
 |O|`LOL
 }:-)`Devilish smile
 ~`Denotes Sarcasm| Put At The End Of A Word To Make It Longer
-Æ`Registered Trademark Symbol
