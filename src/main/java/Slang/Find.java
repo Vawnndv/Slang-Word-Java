@@ -11,7 +11,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
-
 public class Find extends JFrame implements ActionListener, TableModelListener {
 
     private JLabel label_;
